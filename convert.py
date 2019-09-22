@@ -47,7 +47,7 @@ def parse_chapters(chapters, input, activation_bytes, album):
 
         out_arg = Path(input).stem
         output = f'{out_arg}_{i+1}.mp3'
-        cmd.extend(['-c:a', 'mp3', '-vn', output])
+        cmd.extend(['-c:a', namespace.codec, '-vn', output])
         print(cmd)
 
         subprocess.check_output(cmd, universal_newlines=True)
@@ -58,6 +58,8 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--input', help='Input file name', required=True)
     parser.add_argument('-a', '--activation-bytes', help='Activation bytes',
                         required=True)
+    parser.add_argument('-c', '--codec', help='Select a ffmpeg compatible (audio) codec',
+                        default='mp3')
     parser.add_argument('--album',
                         help='ID3v2 tag for Album, if not specified, '
                              'uses from aax')
