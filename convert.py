@@ -46,7 +46,11 @@ def parse_chapters(chapters, input, activation_bytes, album):
             cmd.extend(['-metadata', 'album=%s' % album])
 
         out_arg = Path(input).stem
-        output = f'{out_arg}_{i+1}.mp3'
+        if codec == 'copy':
+            ext = 'm4a'
+        else:
+            ext = 'mp3'
+        output = f'{out_arg}_{i+1}.{ext}'
         cmd.extend(['-c:a', namespace.codec, '-vn', output])
         print(cmd)
 
@@ -58,8 +62,8 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--input', help='Input file name', required=True)
     parser.add_argument('-a', '--activation-bytes', help='Activation bytes',
                         required=True)
-    parser.add_argument('-c', '--codec', help='Select a ffmpeg compatible (audio) codec',
-                        default='mp3')
+    parser.add_argument('-c', '--codec', help='Select a codec (copy = lossless rip)',
+                        default='mp3', choices = ['mp3','copy'])
     parser.add_argument('--album',
                         help='ID3v2 tag for Album, if not specified, '
                              'uses from aax')
@@ -70,6 +74,7 @@ if __name__ == '__main__':
     input = namespace.input
     activation_bytes = namespace.activation_bytes
     album = namespace.album
+    codec = namespace.codec
     chapters = get_chapters(input)
     print(chapters)
 
