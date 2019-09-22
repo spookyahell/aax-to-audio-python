@@ -12,7 +12,7 @@ Then it's just a matter of calling
 python convert.py -i "The Tower of the Swallow.aax" -a xxxxxx
 ```
 
-and have your owned aax converted into mp3s, split by chapters, automatically with '_{Chapter_number}' appended to the end.
+and have your owned aax converted into **mp3**s or **m4a**s (original / stream-copied / my recommendation), split by chapters, automatically with '_{Chapter_number}' appended to the end.
 
 ## Why?
 
